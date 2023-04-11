@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React from "react";
 
 function App() {
+  const [timer, setTimer] = React.useState([0, 0, 0]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <form className="mainform">
+        <h1 className="timer">
+          {timer[0].toString() +
+            " : " +
+            timer[1].toString() +
+            " : " +
+            timer[2].toString()}
+        </h1>
+        <input
+          className="movie_text"
+          type="text"
+          placeholder="TV Series Name"
+        ></input>
+      </form>
     </div>
   );
 }
