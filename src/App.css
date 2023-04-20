@@ -11,5 +11,10 @@
 .movie_text {
   width: 50%;
   font-size: 90px;
-  text-align: center;
+  margin-left: 23%;
+}
+
+.button {
+  width: 10%;
+  font-size: 90px;
 }
