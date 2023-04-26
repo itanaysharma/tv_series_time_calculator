@@ -21,9 +21,9 @@ function App() {
 
   const [totalTime, setTotalTimer] = React.useState("00:00");
   const [seriesName, setSeriesName] = React.useState("");
-  const [apiCall, setApiCall] = React.useState("");
   const apiCallName = React.useRef("");
-
+  const [showLine, setShowLine] = React.useState(false);
+  const [globalDict, setGlobalDict] = React.useState({});
   const handleName = (event) => {
     setSeriesName(event.target.value);
   };
@@ -39,6 +39,7 @@ function App() {
 
   function resetSubmit() {
     setIsSubmit(false);
+    setShowLine(true);
   }
 
   return (
@@ -51,8 +52,12 @@ function App() {
             series={apiCallName.current}
             submit={resetSubmit}
             time={setTotalTimer}
+            sendhere={setGlobalDict}
           ></API>
         )}
+        {console.log(Object.values(globalDict))}
+        {console.log("global")}
+        {showLine && <Line points={Object.values(globalDict)}></Line>}
       </div>
     </div>
   );
@@ -72,8 +77,9 @@ const TvSeries = ({ saveName, final_submit }) => (
   </form>
 );
 
-const API = ({ series, submit, time }) => {
+const API = ({ series, submit, time, sendhere }) => {
   let result_list;
+  let series_dictionary = {};
   React.useEffect(() => {
     let isMounted = true; // Add this line
 
@@ -87,7 +93,7 @@ const API = ({ series, submit, time }) => {
           result_list = result._embedded.episodes;
 
           let total_time = 0;
-          let series_dictionary = {};
+
           result_list.forEach((obj) => {
             total_time += obj.runtime;
             if (!(obj.season in series_dictionary)) {
@@ -96,7 +102,8 @@ const API = ({ series, submit, time }) => {
               series_dictionary[obj.season] += obj.runtime;
             }
           });
-          // console.log(series_dictionary);
+          console.log(series_dictionary);
+          sendhere(series_dictionary);
           // console.log(total_time);
           time(convertMinutesToDHM(total_time));
           submit();
@@ -113,12 +120,39 @@ const API = ({ series, submit, time }) => {
     };
   }, []); // Keep the empty dependency array
 
+  // return <Line points={Object.values(series_dictionary)}></Line>;
   return null;
 };
 
 // const URL = ()=>(
 
 // )
+const Line = ({ points }) => {
+  console.log(points);
+  console.log("this");
+  const prefixSum = [0, points[0]];
+
+  for (let i = 2; i < points.length + 1; i++) {
+    prefixSum[i] = prefixSum[i - 1] + points[i - 1];
+  }
+  console.log(prefixSum);
+  return (
+    <>
+      <h3 className="line">Seasons</h3>
+      <div className="line">
+        {prefixSum.map((point, index) => (
+          <div
+            key={index}
+            className="point"
+            style={{ left: 0, top: `${point / 10}px` }}
+          >
+            {index !== 0 && index}
+          </div>
+        ))}
+      </div>
+    </>
+  );
+};
 
 export default App;
 
