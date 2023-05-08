@@ -12,7 +12,9 @@ function convertMinutesToDHM(minutes) {
   remainingMinutes =
     remainingMinutes < 10 ? "0" + remainingMinutes : remainingMinutes;
 
-  return days + " d : " + hours + " h : " + remainingMinutes + " m";
+  return (
+    days + " Days : " + hours + " hours : " + remainingMinutes + " minutes"
+  );
 }
 
 const API_ENDPOINT = "https://api.tvmaze.com/singlesearch/shows?q=";
@@ -138,15 +140,18 @@ const Line = ({ points }) => {
   console.log(prefixSum);
   return (
     <>
-      <h3 className="line">Seasons</h3>
-      <div className="line">
+      {/* <h3 className="line">Seasons</h3> */}
+      <div
+        className="line"
+        style={{ height: 10 + prefixSum[prefixSum.length - 1] / 10 }}
+      >
         {prefixSum.map((point, index) => (
           <div
             key={index}
             className="point"
             style={{ left: 0, top: `${point / 10}px` }}
           >
-            {index !== 0 && index}
+            {index}
           </div>
         ))}
       </div>
