@@ -89,11 +89,14 @@ const API = ({ series, submit, time, sendhere }) => {
       try {
         const response = await fetch(`${API_ENDPOINT}${series}&embed=episodes`);
         const result = await response.json();
+        console.log(result);
 
         if (isMounted) {
           // Add this line
           result_list = result._embedded.episodes;
-
+          const imageURL = result.image.original;
+          document.body.style.background = `url(${imageURL}) no-repeat fixed center`;
+          document.body.style.opacity = "1";
           let total_time = 0;
 
           result_list.forEach((obj) => {
@@ -129,7 +132,7 @@ const API = ({ series, submit, time, sendhere }) => {
 // const URL = ()=>(
 
 // )
-const Line = ({ points }) => {
+const Line = ({ points, image }) => {
   console.log(points);
   console.log("this");
   const prefixSum = [0, points[0]];
@@ -139,7 +142,7 @@ const Line = ({ points }) => {
   }
   console.log(prefixSum);
   return (
-    <>
+    <div className="">
       {/* <h3 className="line">Seasons</h3> */}
       <div
         className="line"
@@ -155,7 +158,7 @@ const Line = ({ points }) => {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
