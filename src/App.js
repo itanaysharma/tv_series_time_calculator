@@ -67,12 +67,7 @@ function App() {
               image={setImageURL}
             ></API>
           )}
-          {console.log(Object.values(globalDict))}
-          {console.log("global")}
-          {console.log(imageURL)}
-          {showLine && (
-            <Line points={Object.values(globalDict)} image={imageURL}></Line>
-          )}
+          {showLine && <Line points={Object.values(globalDict)}></Line>}
         </div>
       </div>
     </body>
@@ -145,7 +140,7 @@ const API = ({ series, submit, time, sendhere, image }) => {
 // const URL = ()=>(
 
 // )
-const Line = ({ points, image }) => {
+const Line = ({ points }) => {
   console.log(points);
   console.log("this");
   const prefixSum = [0, points[0]];
