@@ -26,6 +26,7 @@ function App() {
   const apiCallName = React.useRef("");
   const [showLine, setShowLine] = React.useState(false);
   const [globalDict, setGlobalDict] = React.useState({});
+  const [imageURL, setImageURL] = React.useState("");
   const handleName = (event) => {
     setSeriesName(event.target.value);
   };
@@ -45,23 +46,36 @@ function App() {
   }
 
   return (
-    <div className="mainform">
-      <h1 className="timer">{totalTime}</h1>
-      <div>
-        <TvSeries saveName={handleName} final_submit={handleSubmit}></TvSeries>
-        {isSubmit && (
-          <API
-            series={apiCallName.current}
-            submit={resetSubmit}
-            time={setTotalTimer}
-            sendhere={setGlobalDict}
-          ></API>
-        )}
-        {console.log(Object.values(globalDict))}
-        {console.log("global")}
-        {showLine && <Line points={Object.values(globalDict)}></Line>}
+    <body>
+      <div
+        className="background-image"
+        style={{ backgroundImage: `url(${imageURL})` }}
+      ></div>
+      <div className="mainform">
+        <div className="timer">{totalTime}</div>
+        <div>
+          <TvSeries
+            saveName={handleName}
+            final_submit={handleSubmit}
+          ></TvSeries>
+          {isSubmit && (
+            <API
+              series={apiCallName.current}
+              submit={resetSubmit}
+              time={setTotalTimer}
+              sendhere={setGlobalDict}
+              image={setImageURL}
+            ></API>
+          )}
+          {console.log(Object.values(globalDict))}
+          {console.log("global")}
+          {console.log(imageURL)}
+          {showLine && (
+            <Line points={Object.values(globalDict)} image={imageURL}></Line>
+          )}
+        </div>
       </div>
-    </div>
+    </body>
   );
 }
 
@@ -79,7 +93,7 @@ const TvSeries = ({ saveName, final_submit }) => (
   </form>
 );
 
-const API = ({ series, submit, time, sendhere }) => {
+const API = ({ series, submit, time, sendhere, image }) => {
   let result_list;
   let series_dictionary = {};
   React.useEffect(() => {
@@ -94,9 +108,7 @@ const API = ({ series, submit, time, sendhere }) => {
         if (isMounted) {
           // Add this line
           result_list = result._embedded.episodes;
-          const imageURL = result.image.original;
-          document.body.style.background = `url(${imageURL}) no-repeat fixed center`;
-          document.body.style.opacity = "1";
+
           let total_time = 0;
 
           result_list.forEach((obj) => {
@@ -109,6 +121,7 @@ const API = ({ series, submit, time, sendhere }) => {
           });
           console.log(series_dictionary);
           sendhere(series_dictionary);
+          image(result.image.original);
           // console.log(total_time);
           time(convertMinutesToDHM(total_time));
           submit();

@@ -1,17 +1,20 @@
+@import url("https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@900&display=swap");
 .mainform {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 .timer {
-  font-size: 50px;
+  font-size: 55px;
   margin-top: 8%;
   padding-bottom: 4%;
+  font-family: "Saira Semi Condensed", sans-serif;
 }
 .movie_text {
-  width: 50%;
+  width: 60%;
   font-size: 90px;
-  margin-left: 23%;
+  margin-left: 18%;
+  background-image: inherit;
 }
 
 .button {
@@ -35,5 +38,14 @@
   background-color: red;
   border-radius: 50%;
 }
-body {
+.background-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.6; /* Set the opacity as required */
+  z-index: -1; /* This makes sure the pseudo-element is below other content */
 }
