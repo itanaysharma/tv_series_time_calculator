@@ -74,19 +74,37 @@ function App() {
   );
 }
 
-const TvSeries = ({ saveName, final_submit }) => (
-  <form onSubmit={final_submit}>
-    <input
-      className="movie_text"
-      type="text"
-      placeholder="TV Series"
-      onChange={saveName}
-    ></input>
-    <button type="submit" className="button">
-      Cl
-    </button>
-  </form>
-);
+const TvSeries = ({ saveName, final_submit }) => {
+  const [isFocused, setIsFocused] = React.useState(false);
+
+  const handleFocus = () => {
+    setIsFocused(false);
+  };
+
+  const handleBlur = () => {
+    setIsFocused(true);
+  };
+  const handleSubmit = (event) => {
+    setIsFocused(true);
+    final_submit(event);
+  };
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        className={`movie_text ${isFocused ? "transparent" : ""}`}
+        type="text"
+        placeholder="TV Series"
+        onChange={saveName}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+      ></input>
+      <br></br>
+      <button type="submit" className="button">
+        Submit
+      </button>
+    </form>
+  );
+};
 
 const API = ({ series, submit, time, sendhere, image }) => {
   let result_list;
