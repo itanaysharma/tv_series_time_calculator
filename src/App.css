@@ -3,12 +3,76 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex-wrap: wrap;
 }
 .timer {
   margin-top: 8%;
   padding-bottom: 4%;
   font-family: "Saira Semi Condensed", sans-serif;
-  font-size: 5vh;
+  text-align: center;
+  font-size: 300%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Add media queries for different viewport sizes */
+@media (max-width: 768px) {
+  .timer {
+    font-size: 250%;
+  }
+}
+
+@media (max-width: 480px) {
+  .timer {
+    font-size: 200%;
+  }
+}
+
+@media (max-width: 320px) {
+  .timer {
+    font-size: 150%;
+  }
+}
+.movie_text {
+  width: 100%;
+  font-size: 6vw;
+  margin: 0;
+  padding: 2% 4%;
+  border: none;
+}
+
+.button {
+  font-size: 6vw;
+  margin: 2% auto;
+}
+
+.line {
+  position: relative;
+  width: 12px;
+  margin-top: 10%;
+  margin-left: auto;
+  margin-right: auto;
+  height: 60vh;
+  max-height: 476px;
+  background-color: black;
+}
+
+.point {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background-color: red;
+  border-radius: 50%;
+  left: 0;
+  transform: translate(-50%, -50%);
+}
+
+/* .timer {
+  margin-top: 8%;
+  padding-bottom: 4%;
+  font-family: "Saira Semi Condensed", sans-serif;
+  text-align: center;
+  font-size: 300%;
 }
 .movie_text {
   width: 60%;
@@ -18,8 +82,7 @@
 }
 
 .button {
-  width: 10%;
-  font-size: 90px;
+  font-size: 80px;
 }
 
 .line {
@@ -30,9 +93,7 @@
   height: 476px;
   background-color: black;
 }
-.transparent {
-  background-color: transparent;
-}
+
 
 .point {
   position: absolute;
@@ -40,7 +101,7 @@
   height: 12px;
   background-color: red;
   border-radius: 50%;
-}
+} */
 .background-image {
   position: fixed;
   top: 0;
@@ -51,4 +112,7 @@
   background-position: center;
   opacity: 0.6; /* Set the opacity as required */
   z-index: -1; /* This makes sure the pseudo-element is below other content */
+}
+.transparent {
+  background-color: transparent;
 }
