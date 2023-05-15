@@ -35,14 +35,16 @@
 }
 .movie_text {
   width: 100%;
-  font-size: 6vw;
+  font-size: 7vw;
   margin: 0;
   padding: 2% 4%;
   border: none;
+  text-align: center;
 }
 
 .button {
-  font-size: 6vw;
+  width: 100%;
+  font-size: 5vw;
   margin: 2% auto;
 }
 
